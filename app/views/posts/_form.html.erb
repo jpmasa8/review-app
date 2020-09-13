@@ -1,0 +1,52 @@
+<% if flash[:error_messages] %>
+    <div class="alert alert-danger">
+        <ul>
+            <% flash[:error_messages].each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
+<%= render 'shared/error_messages' %>
+
+<%= form_for post do |f| %>
+    <div class="form-group">
+        <%= f.label :name, '投稿者名' %>
+        <%= f.text_field :name, class: 'form-control' %>
+        <small id="poster-tip" class="form-text text-muted">
+            あなたの名前を入力してください。
+        </small>
+    </div>
+    <div class="form-group">
+        <%= f.label :title, 'タイトル' %>
+        <%= f.text_field :title, class: 'form-control' %>
+        <small id="title-tip" class="form-text text-muted">
+            タイトルを入力してください。
+        </small>
+    </div>
+    <div class="form-group">
+        <%= f.label :content, '内容' %>
+        <%= f.text_area :content, class: 'form-control', rows:10 %>
+        <small id="content-tip" class="form-text text-muted">
+            内容を入力してください。 
+        </small>
+    </div>
+
+    <div class="form-group">
+    <span>タグ</span>
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+      <div class="form-check">
+        <%= tag.label class: 'form-check-label' do %>
+          <%= tag.check_box class: 'form-check-input' %>
+          <%= tag.text %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+    <%= f.submit '投稿', class: 'btn btn-info btn-block' %>
+    <small id="submit-tip" class="form-text text-muted">
+        投稿する前に内容を見直してください!
+    </small>
+<% end %>
