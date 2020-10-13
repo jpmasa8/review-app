@@ -8,9 +8,6 @@
 # coding: utf-8
 
 if Rails.env == 'development'
-    (1..100).each do |i|
-        Post.create(name: "名前#{i}", title: "タイトル#{i}", content: "本文#{i}")
-    end
     
     Tag.create([
         { name: '生活と暮らし' },
